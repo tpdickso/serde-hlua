@@ -7,7 +7,7 @@
 //! datatype that implements serde's serialize and deserialize traits,
 //! respectively.
 //!
-//! ```
+//! ```rust
 //! extern crate hlua;
 //! extern crate serde;
 //! #[macro_use] extern crate serde_derive;
@@ -95,7 +95,7 @@ pub fn from_lua<'de, T>(value: hlua::AnyLuaValue) -> de::DeResult<T>
 ///
 /// This makes it easy to call lua functions with rust structures:
 /// 
-/// ```
+/// ```rust
 /// extern crate hlua;
 /// extern crate serde;
 /// #[macro_use] extern crate serde_derive;
@@ -154,7 +154,7 @@ impl<'lua, L, T> hlua::PushOne<L> for SerdeLuaPush<T>
 ///
 /// This makes it easy to call rust functions from lua:
 /// 
-/// ```
+/// ```rust
 /// extern crate hlua;
 /// extern crate serde;
 /// #[macro_use] extern crate serde_derive;

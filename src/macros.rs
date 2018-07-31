@@ -9,7 +9,7 @@ pub mod hlua {
 /// Writes a `Push` impl and a `PushOne` impl for any type which is
 /// `Serialize`.
 ///
-/// ```
+/// ```rust
 /// extern crate hlua;
 /// extern crate serde;
 /// #[macro_use] extern crate serde_derive;
@@ -65,7 +65,7 @@ macro_rules! serde_lua_impl_push {
 
 /// Writes a `LuaRead` impl for any type which is `Deserialize`.
 ///
-/// ```
+/// ```rust
 /// extern crate hlua;
 /// extern crate serde;
 /// #[macro_use] extern crate serde_derive;
