@@ -21,3 +21,11 @@ Known limitations
 
    Unit enum variants are also encoded losslessly, as they are encoded
    as the name of the variant as a string.
+
+ * Integer values are only serialized and deserialized if they can do
+   so losslessly. `std::i64::MIN` can be losslessly encoded, but
+   `std::i64::MIN + 1` cannot, as it is rounded to a different value.
+
+   `f32` values are always encoded into `f64`, as otherwise `f64`
+   values with too many significant digits (such as `1/3`) would not
+   encode. They are cast using rust's `as` operator.
