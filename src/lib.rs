@@ -1,5 +1,37 @@
 
 //! Implementation of serialization and deserialization for lua structures.
+//! Usage
+//! ---
+//!
+//! The `to_lua` and `from_lua` functions are the easiest way to serialize any
+//! datatype that implements serde's serialize and deserialize traits,
+//! respectively.
+//!
+//! ```
+//! extern crate hlua;
+//! extern crate serde;
+//! #[macro_use] extern crate serde_derive;
+//! extern crate serde_hlua;
+//!
+//! #[derive(Debug, Deserialize, Serialize, PartialEq)]
+//! struct Point {
+//!     x: f32,
+//!     y: f32
+//! }
+//!
+//! fn main() {
+//!     let mut lua = hlua::Lua::new();
+//!
+//!     let my_point = Point { x: 3.0, y: 4.0 };
+//!     lua.set("my_value", serde_hlua::to_lua(&my_point).unwrap());
+//!
+//!     let retrieved_point: Point = serde_hlua::from_lua(
+//!         lua.get::<hlua::AnyLuaValue, _>("my_value").unwrap()
+//!     ).unwrap();
+//!
+//!     assert_eq!(my_point, retrieved_point);
+//! }
+//! ```
 //!
 //! Known limitations
 //! ---
