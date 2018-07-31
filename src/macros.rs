@@ -21,7 +21,7 @@ pub mod hlua {
 ///     y: f32
 /// }
 ///
-/// serde_lua_impl_push!(Point);
+/// serde_hlua_impl_push!(Point);
 ///
 /// fn main() {
 ///     let mut lua = hlua::Lua::new();
@@ -37,7 +37,7 @@ pub mod hlua {
 /// }
 /// ```
 #[macro_export]
-macro_rules! serde_lua_impl_push {
+macro_rules! serde_hlua_impl_push {
     ($type: ty) => {
         impl<'lua, L> $crate::macros::hlua::Push<L> for $type
             where L: $crate::macros::hlua::AsMutLua<'lua>
@@ -77,7 +77,7 @@ macro_rules! serde_lua_impl_push {
 ///     y: f32
 /// }
 ///
-/// serde_lua_impl_read!(Point);
+/// serde_hlua_impl_read!(Point);
 /// 
 /// fn dot(a: Point, b: Point) -> f32 {
 ///     a.x * b.x + a.y * b.y
@@ -98,7 +98,7 @@ macro_rules! serde_lua_impl_push {
 /// }
 /// ```
 #[macro_export]
-macro_rules! serde_lua_impl_read {
+macro_rules! serde_hlua_impl_read {
     ($type: ty) => {
         impl<'lua, L> $crate::macros::hlua::LuaRead<L> for $type
             where L: $crate::macros::hlua::AsMutLua<'lua>
