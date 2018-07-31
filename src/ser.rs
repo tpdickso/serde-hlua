@@ -714,5 +714,43 @@ mod tests {
             "'W5D/wRYLNAkD'"
         ));
     }
+
+    #[derive(Serialize)]
+    #[serde(tag = "type")]
+    enum InternallyTaggedEnum {
+        TypeA {
+            payload: f32
+        },
+        TypeB {
+            payload: String
+        },
+    }
+
+    #[derive(Serialize)]
+    #[serde(untagged)]
+    enum UntaggedEnum {
+        TypeA(f32),
+        TypeB(String)
+    }
+
+    #[test]
+    fn enum_formats() {
+        assert!(test(
+            &InternallyTaggedEnum::TypeA { payload: 1.5 },
+            "return (
+                value.type == 'TypeA' and
+                value.payload == 1.5)",
+            false
+        ));
+        assert!(test(
+            &InternallyTaggedEnum::TypeB { payload: "whoa!".to_string() },
+            "return (
+                value.type == 'TypeB' and
+                value.payload == 'whoa!')",
+            false
+        ));
+        assert!(test_eq(&UntaggedEnum::TypeA(1.5), "1.5"));
+        assert!(test_eq(&UntaggedEnum::TypeB("yeehaw!".to_string()), "'yeehaw!'"));
+    }
 }
 

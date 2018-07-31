@@ -36,6 +36,40 @@ fn main() {
 }
 ```
 
+The serialization implemented by this crate doesn't use lua's userdata
+system; all types are serialized to plain lua types.
+
+```rust
+extern crate hlua;
+extern crate serde;
+#[macro_use] extern crate serde_derive;
+extern crate serde_hlua;
+
+#[derive(Debug, Deserialize, Serialize, PartialEq)]
+struct Point {
+    x: f32,
+    y: f32
+}
+
+fn main() {
+    let mut lua = hlua::Lua::new();
+    let lua_point: Point = serde_hlua::from_lua(lua.execute::<hlua::AnyLuaValue>("
+        return { x = 3.5, y = 7 }
+    ").unwrap()).unwrap();
+
+    assert_eq!(lua_point, Point { x: 3.5, y: 7.0 });
+}
+```
+
+Typechecking is performed automatically, so an invalid lua value can't
+deserialize to a type that doesn't support it.
+
+```rust
+serde_hlua::from_lua::<Point>(lua.execute::<hlua::AnyLuaValue>("
+    return { x = 3.5, y = 'wrong type!' }
+").unwrap()); // Returns an `Err`
+```
+
 Known limitations
 ---
 
