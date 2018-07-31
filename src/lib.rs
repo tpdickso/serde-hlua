@@ -85,8 +85,8 @@
 //! Known limitations
 //! ---
 //!
-//! * Mappings and sequences to unit structs are not surjective. In other
-//!   words, lua will convert all of `[]`, `[()]`, and `[(), ()]` to the
+//! * Mappings and sequences to unit structs are not injective.
+//!   Lua will convert all of `[]`, `[()]`, and `[(), ()]` to the
 //!   empty array `{}`. This is because lua considers setting a value to
 //!   nil to be equivalent to erasing it from a table, and so the table
 //!   `{a = nil, b = nil}` is the same as the table `{}`. Because of this,
