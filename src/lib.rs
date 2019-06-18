@@ -175,6 +175,7 @@ pub fn from_lua<'de, T>(value: hlua::AnyLuaValue) -> de::DeResult<T>
 /// This can be made even more ergonomic by implementing `Push` for your
 /// type in terms of `SerdeLuaPush`. The macro `serde_lua_impl_read!` does
 /// this automatically.
+#[derive(Default)]
 pub struct SerdeLuaPush<T: serde::Serialize>(pub T);
 
 impl<'lua, L, T> hlua::Push<L> for SerdeLuaPush<T>
@@ -241,6 +242,7 @@ impl<'lua, L, T> hlua::PushOne<L> for SerdeLuaPush<T>
 /// This can be made even more ergonomic by implementing `Push` for your
 /// type in terms of `SerdeLuaPush`. The macro `serde_lua_impl_read!` does
 /// this automatically.
+#[derive(Default)]
 pub struct SerdeLuaRead<T>(pub T)
     where T: for<'de> serde::Deserialize<'de>;
 

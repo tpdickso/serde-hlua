@@ -16,7 +16,7 @@ default = ["base64-bytes"]
 base64-bytes = ["base64"]
 
 [dependencies]
-hlua = { git = "https://github.com/tomaka/hlua.git" }
+hlua = "*" # { git = "https://github.com/tomaka/hlua.git" }
 serde = "1.0"
 base64 = { version = "0.9", optional = true }
 
