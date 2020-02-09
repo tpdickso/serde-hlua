@@ -254,7 +254,7 @@ impl<'lua, L, T> hlua::LuaRead<L> for SerdeLuaRead<T>
     fn lua_read_at_position(mut lua: L, index: i32) -> Result<Self, L> {
         {
             let any_maybe = hlua::AnyLuaValue::lua_read_at_position(
-                &mut lua as &mut hlua::AsMutLua<'lua>,
+                &mut lua as &mut dyn hlua::AsMutLua<'lua>,
                 index
             );
             match any_maybe {

@@ -716,7 +716,7 @@ mod tests {
         assert!(
             from_lua::<BTreeMap<String, f32>>(procure(
                 "{ first = 1, second = 2, third = '3.25'}"
-            )).is_err()!
+            )).is_err()
         );
     }
 
