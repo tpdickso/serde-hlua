@@ -410,6 +410,13 @@ fn is_vec(array: Vec<(AnyLuaValue, AnyLuaValue)>) -> Result<
     Vec<(AnyLuaValue, AnyLuaValue)>,
     Vec<(AnyLuaValue, AnyLuaValue)>
 > {
+    if array.iter().any(|&(ref key, _)| match key {
+        &AnyLuaValue::LuaNumber(_) => false,
+        _ => true
+    }) {
+        return Err(array);
+    }
+
     let mut sorted = array.clone();
     sorted.sort_by_key(|&(ref index, _)| match index {
         &AnyLuaValue::LuaNumber(number) => number as usize,
